@@ -20,11 +20,17 @@
 html,
 body {
   width: 100%;
+  max-width: 100vw;
   font-family: var(--font-body);
   margin: 0;
   padding: 0;
   color: var(--text-color);
   background: linear-gradient(to bottom, #ffeaf2 0%, #e8ebf7 100%);
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -386,20 +392,44 @@ nav a.active {
 .testimonials {
   padding: 80px 0;
   background: #fff;
+  text-align: center;
 }
 
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
   margin-top: 40px;
 }
 
-.testimonial-card {
+.marquee-content {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonial-card-marquee {
   background: #fdf2f5;
   padding: 30px;
   border-radius: 15px;
   text-align: center;
+  flex: 0 0 350px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .stars {
@@ -408,7 +438,7 @@ nav a.active {
   margin-bottom: 15px;
 }
 
-.testimonial-card p {
+.testimonial-card-marquee p {
   font-style: italic;
   color: #555;
   margin-bottom: 20px;
@@ -460,6 +490,100 @@ footer h3 {
   align-items: center;
   justify-content: center;
   color: #bdc3c7;
+}
+
+/* Step Above Section */
+.step-above {
+  padding: 80px 0;
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.step-above::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(84, 160, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.step-above p.subtitle {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* Feature Rows */
+.feature-list {
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.feature-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.feature-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-image {
+  flex: 1;
+}
+
+.feature-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  height: 350px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.feature-image:hover img {
+  transform: translateY(-5px);
+}
+
+.feature-text {
+  flex: 1;
+  text-align: left;
+}
+
+.feature-text h4 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--deep-purple);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+}
+
+.feature-text h4::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--dark-pink);
+  margin-top: 10px;
+}
+
+.feature-text p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
 }
 
 /* Responsive */
@@ -533,6 +657,24 @@ footer h3 {
     flex-direction: column;
     gap: 15px;
   }
+
+  .feature-row {
+    flex-direction: column !important;
+    gap: 30px;
+  }
+
+  .feature-image img {
+    height: 250px;
+  }
+
+  .feature-text {
+    text-align: center;
+  }
+
+  .feature-text h4::after {
+    margin: 10px auto;
+  }
+
 
   .footer-container {
     grid-template-columns: 1fr;
